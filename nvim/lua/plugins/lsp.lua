@@ -130,6 +130,8 @@ return {
     -- So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
+    capabilities.general.positionEncodings = { 'utf-16' }
+    -- capabilities.offsetEncoding = { 'utf-16' }
 
     -- Enable the following language servers
     --

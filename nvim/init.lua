@@ -39,4 +39,5 @@ require('lazy').setup {
   require 'plugins.floaterm',
   require 'plugins.lazygit',
   require 'plugins.debug',
+  require 'plugins.lsp_signature',
 }
