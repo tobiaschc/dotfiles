@@ -162,38 +162,37 @@ return {
           },
         },
       },
-      pylsp = {
-        settings = {
-          pylsp = {
-            plugins = {
-              pyflakes = { enabled = false },
-              pycodestyle = { enabled = false },
-              autopep8 = { enabled = false },
-              yapf = { enabled = false },
-              mccabe = { enabled = false },
-              pylsp_mypy = { enabled = false },
-              pylsp_black = { enabled = false },
-              pylsp_isort = { enabled = false },
-            },
-          },
-        },
-      },
-      -- basedpyright = {
-      --   -- Config options: https://github.com/DetachHead/basedpyright/blob/main/docs/settings.md
+      -- pylsp = {  -- Disabled in favor of basedpyright for type checking
       --   settings = {
-      --     basedpyright = {
-      --       disableOrganizeImports = true, -- Using Ruff's import organizer
-      --       disableLanguageServices = false,
-      --       analysis = {
-      --         ignore = { '*' },                 -- Ignore all files for analysis to exclusively use Ruff for linting
-      --         typeCheckingMode = 'off',
-      --         diagnosticMode = 'openFilesOnly', -- Only analyze open files
-      --         useLibraryCodeForTypes = true,
-      --         autoImportCompletions = true,     -- whether pyright offers auto-import completions
+      --     pylsp = {
+      --       plugins = {
+      --         pyflakes = { enabled = false },
+      --         pycodestyle = { enabled = false },
+      --         autopep8 = { enabled = false },
+      --         yapf = { enabled = false },
+      --         mccabe = { enabled = false },
+      --         pylsp_mypy = { enabled = false },
+      --         pylsp_black = { enabled = false },
+      --         pylsp_isort = { enabled = false },
       --       },
       --     },
       --   },
       -- },
+      basedpyright = {
+        -- Config options: https://github.com/DetachHead/basedpyright/blob/main/docs/settings.md
+        settings = {
+          basedpyright = {
+            disableOrganizeImports = true, -- Using Ruff's import organizer
+            disableLanguageServices = false,
+            analysis = {
+              typeCheckingMode = 'basic', -- 'off', 'basic', or 'strict'
+              diagnosticMode = 'openFilesOnly', -- Only analyze open files
+              useLibraryCodeForTypes = true,
+              autoImportCompletions = true, -- whether pyright offers auto-import completions
+            },
+          },
+        },
+      },
       ruff = {},
       jsonls = {},
       sqlls = {},
