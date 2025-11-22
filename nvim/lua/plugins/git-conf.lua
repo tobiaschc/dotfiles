@@ -44,25 +44,13 @@ return {
         end
 
         -- Navigation
-        map('n', ']c', function()
-          if vim.wo.diff then
-            return ']c'
-          end
-          vim.schedule(function()
-            gs.next_hunk()
-          end)
-          return '<Ignore>'
-        end, { expr = true, desc = 'Next Hunk' })
+        map('n', '<leader>ghn', function()
+          gs.nav_hunk 'next'
+        end, { desc = '[G]it [H]unk [N]ext' })
 
-        map('n', '[c', function()
-          if vim.wo.diff then
-            return '[c'
-          end
-          vim.schedule(function()
-            gs.prev_hunk()
-          end)
-          return '<Ignore>'
-        end, { expr = true, desc = 'Previous Hunk' })
+        map('n', '<leader>ghp', function()
+          gs.nav_hunk 'prev'
+        end, { desc = '[G]it [H]unk [P]rev' })
 
         -- Actions
         map('n', '<leader>ghs', gs.stage_hunk, { desc = '[G]it [H]unk [S]tage' })
@@ -75,7 +63,7 @@ return {
         end, { desc = '[G]it [H]unk [R]eset' })
         map('n', '<leader>ghS', gs.stage_buffer, { desc = '[G]it [H]unk [S]tage Buffer' })
         map('n', '<leader>ghR', gs.reset_buffer, { desc = '[G]it [H]unk [R]eset Buffer' })
-        map('n', '<leader>ghp', gs.preview_hunk, { desc = '[G]it [H]unk [P]review' })
+        map('n', '<leader>ghP', gs.preview_hunk, { desc = '[G]it [H]unk [P]review' })
         map('n', '<leader>ghi', gs.preview_hunk_inline, { desc = '[G]it [H]unk [I]nline Preview' })
         map('n', '<leader>gb', function()
           gs.blame_line { full = true }
