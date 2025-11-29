@@ -44,8 +44,21 @@ return {
       },
       pickers = {
         find_files = {
-          file_ignore_patterns = { 'node_modules', '.git', '.venv' },
-          hidden = true,
+          initial_mode = 'insert',
+          find_command = {
+            'rg',
+            '--files',
+            '--hidden',
+            '--no-ignore',
+            '--follow',
+            '-g',
+            '!.venv/',
+            '-g',
+            '!.git/',
+            '-g',
+            '!__pycache__/',
+          },
+          only_cwd = true,
         },
         buffers = {
           initial_mode = 'normal',
@@ -66,9 +79,18 @@ return {
         },
       },
       live_grep = {
-        file_ignore_patterns = { 'node_modules', '.git', '.venv' },
-        additional_args = function(_)
-          return { '--hidden' }
+        additional_args = function()
+          return {
+            '--hidden',
+            '--no-ignore',
+            '--follow',
+            '-g',
+            '!.venv/',
+            '-g',
+            '!.git/',
+            '-g',
+            '!__pycache__/',
+          }
         end,
       },
       path_display = {
@@ -83,6 +105,10 @@ return {
       },
       git_files = {
         previewer = false,
+      },
+      diagnostics = {
+        initial_mode = 'normal',
+        previewer = true,
       },
     }
 
@@ -104,11 +130,12 @@ return {
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
     vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-    vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+    vim.keymap.set('n', '<leader>sd', '<cmd>Telescope diagnostics<CR>', { desc = '[S]earch [D]iagnostics' })
+    -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]resume' })
     vim.keymap.set('n', '<leader>so', builtin.oldfiles, { desc = '[S]earch Recent Files' })
     vim.keymap.set('n', '<leader>sm', builtin.marks, { desc = '[S]earch [M]arks' })
-    vim.keymap.set('n', '<leader>sds', function()
+    vim.keymap.set('n', '<leader>ss', function()
       builtin.lsp_document_symbols {
         symbols = { 'Class', 'Function', 'Method', 'Constructor', 'Interface', 'Module', 'Property' },
       }
