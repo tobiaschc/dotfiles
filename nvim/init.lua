@@ -50,4 +50,5 @@ require('lazy').setup {
   require 'plugins.lazygit',
   -- require 'plugins.debug',
   require 'plugins.lsp_signature',
+  require 'plugins.markdown',
 }
