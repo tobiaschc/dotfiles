@@ -52,4 +52,5 @@ require('lazy').setup {
   require 'plugins.lsp_signature',
   require 'plugins.markdown',
   require 'plugins.octo',
+  require 'plugins.obsidian',
 }
