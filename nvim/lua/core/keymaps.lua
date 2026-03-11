@@ -69,7 +69,7 @@ vim.keymap.set('n', '<C-l>', ':wincmd l<CR>', opts)
 -- vim.keymap.set('n', '<leader>tp', ':tabp<CR>', opts) --  go to previous tab
 
 -- Toggle line wrapping
-vim.keymap.set('n', '<leader>lw', '<cmd>set wrap!<CR>', opts)
+vim.keymap.set('n', '<leader>tw', '<cmd>set wrap!<CR>', { noremap = true, silent = true, desc = '[T]oggle [W]rap' })
 
 -- Press jk fast to exit insert mode
 vim.keymap.set('i', 'jk', '<ESC>', opts)
@@ -86,8 +86,24 @@ vim.keymap.set('v', '<A-k>', ':m .-2<CR>==', opts)
 -- Keep last yanked when pasting
 vim.keymap.set('v', 'p', '"_dP', opts)
 
--- Replace word under cursor
-vim.keymap.set('n', '<leader>j', '*``cgn', opts)
+local function wrap_word_in_backticks()
+  local keys = vim.api.nvim_replace_termcodes('viwc`<C-r>"`<Esc>', true, false, true)
+  vim.api.nvim_feedkeys(keys, 'n', false)
+end
+
+vim.keymap.set('n', '<leader>c', wrap_word_in_backticks, {
+  noremap = true,
+  silent = true,
+  desc = '[C]ode `word`',
+})
+
+vim.keymap.set('x', '<leader>c', 'c`<C-r>"`<Esc>', {
+  noremap = true,
+  silent = true,
+  desc = '[C]ode `selection',
+})
+
+vim.keymap.set('n', '<leader>rw', '*``cgn', { noremap = true, silent = true, desc = '[R]eplace [W]ord under cursor' })
 
 -- Explicitly yank to system clipboard (highlighted and entire row)
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
@@ -96,7 +112,7 @@ vim.keymap.set('n', '<leader>Y', [["+Y]])
 -- Toggle diagnostics
 local diagnostics_active = true
 
-vim.keymap.set('n', '<leader>do', function()
+vim.keymap.set('n', '<leader>td', function()
   diagnostics_active = not diagnostics_active
 
   if diagnostics_active then
@@ -104,7 +120,7 @@ vim.keymap.set('n', '<leader>do', function()
   else
     vim.diagnostic.enable(false)
   end
-end)
+end, { desc = '[T]oggle [D]iagnostics' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', function()
@@ -119,7 +135,7 @@ vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open float
 -- Telescope-powered diagnostics navigation
 vim.keymap.set('n', '<leader>q', function()
   require('telescope.builtin').diagnostics { bufnr = 0 }
-end, { desc = 'Diagnostics (buffer via Telescope)' })
+end, { desc = '[Q]uick [D]iagnostics (buffer)' })
 
 -- Extra Telescope diagnostics pickers
 vim.keymap.set('n', '<leader>dd', function()

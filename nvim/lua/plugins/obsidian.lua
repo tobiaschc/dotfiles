@@ -24,7 +24,7 @@ return {
         action = function()
           return require('obsidian').util.toggle_checkbox()
         end,
-        opts = { buffer = true, desc = 'Toggle Check Box' },
+        opts = { buffer = true, desc = '[T]oggle [C]heck [B]ox' },
       },
       -- smart action
       ['<leader>cs'] = {

@@ -39,6 +39,6 @@ return {
       vim.fn.system 'tmux unbind-key -T root Escape'
     end
 
-    vim.keymap.set('n', '<leader>,', copilot_toggle, { noremap = true, silent = true, desc = 'Toggle GitHub Copilot Terminal' })
+    vim.keymap.set('n', '<leader>,', copilot_toggle, { noremap = true, silent = true, desc = '[T]oggle GitHub Copilot Terminal' })
   end,
 }

@@ -20,6 +20,7 @@ return {
   },
   config = function()
     local actions = require 'telescope.actions'
+    local action_state = require 'telescope.actions.state'
     local builtin = require 'telescope.builtin'
     -- After selecting a diagnostic, center the view (zz)
     local function select_and_center(prompt_bufnr)
@@ -27,6 +28,34 @@ return {
       vim.schedule(function()
         pcall(vim.cmd, 'normal! zz')
       end)
+    end
+
+    -- Yank the current diagnostic entry to registers "+ and unnamed
+    local function yank_diagnostic(prompt_bufnr, kind)
+      local entry = action_state.get_selected_entry()
+      if not entry then
+        return
+      end
+      local val = entry.value or entry
+      local bufnr = val.bufnr or entry.bufnr
+      local filename = val.filename or entry.filename
+      if not filename and bufnr then
+        filename = vim.api.nvim_buf_get_name(bufnr)
+      end
+      local lnum = (val.lnum or entry.lnum or val.row or entry.row or 0) + 1
+      local col = (val.col or entry.col or val.colnr or entry.colnr or 0) + 1
+      local message = val.message or val.text or entry.message or entry.text or ''
+
+      local out
+      if kind == 'full' then
+        local rel = filename and vim.fn.fnamemodify(filename, ':.') or ''
+        out = string.format('%s:%d:%d %s', rel, lnum, col, message)
+      else
+        out = message
+      end
+      vim.fn.setreg('+', out)
+      vim.fn.setreg('"', out)
+      vim.notify('Yanked diagnostic', vim.log.levels.INFO, { title = 'Telescope' })
     end
 
     require('telescope').setup {
@@ -91,10 +120,16 @@ return {
             i = {
               ['<CR>'] = select_and_center,
               ['<C-l>'] = select_and_center,
+              ['<C-y>'] = function(bufnr)
+                yank_diagnostic(bufnr, 'full')
+              end,
             },
             n = {
               ['<CR>'] = select_and_center,
               ['l'] = select_and_center,
+              ['y'] = function(bufnr)
+                yank_diagnostic(bufnr, 'full')
+              end,
             },
           },
         },
@@ -133,9 +168,9 @@ return {
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
 
-    vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch existing [B]uffers' })
+    -- vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch existing [B]uffers' })
     vim.keymap.set('n', '<leader><tab>', builtin.buffers, { desc = '[S]earch existing [B]uffers' })
-    vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+    -- vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
     -- Git keymaps
     vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
     vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = 'Search [G]it [C]ommits' })
@@ -163,11 +198,11 @@ return {
         prompt_title = 'Live Grep in Open Files',
       }
     end, { desc = '[S]earch [/] in Open Files' })
-    vim.keymap.set('n', '<leader>/', function()
+    vim.keymap.set('n', '<leader><leader>', function()
       -- You can pass additional configuration to telescope to change theme, layout, etc.
       builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
         previewer = false,
       })
-    end, { desc = '[/] Fuzzily search in current buffer' })
+    end, { desc = '[ ] Fuzzily search in current buffer' })
   end,
 }

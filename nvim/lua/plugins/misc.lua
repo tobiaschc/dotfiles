@@ -42,6 +42,16 @@ return {
       --   },
       -- },
     },
+    config = function(_, opts)
+      local wk = require('which-key')
+      wk.setup(opts)
+      -- Group toggles under <leader>t (support both new and old APIs)
+      if wk.add then
+        wk.add({ { '<leader>t', group = '[T]oggle' } })
+      else
+        wk.register({ t = { name = '[T]oggle' } }, { prefix = '<leader>' })
+      end
+    end,
   },
   {
     -- Autoclose parentheses, brackets, quotes, etc.
