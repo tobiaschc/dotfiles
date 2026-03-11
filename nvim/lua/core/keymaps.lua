@@ -116,7 +116,27 @@ vim.keymap.set('n', ']d', function()
 end, { desc = 'Go to next diagnostic message' })
 
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+-- Telescope-powered diagnostics navigation
+vim.keymap.set('n', '<leader>q', function()
+  require('telescope.builtin').diagnostics { bufnr = 0 }
+end, { desc = 'Diagnostics (buffer via Telescope)' })
+
+-- Extra Telescope diagnostics pickers
+vim.keymap.set('n', '<leader>dd', function()
+  require('telescope.builtin').diagnostics { bufnr = 0 }
+end, { desc = 'Diagnostics (buffer)' })
+
+vim.keymap.set('n', '<leader>dD', function()
+  require('telescope.builtin').diagnostics()
+end, { desc = 'Diagnostics (workspace)' })
+
+vim.keymap.set('n', '<leader>de', function()
+  require('telescope.builtin').diagnostics { severity = vim.diagnostic.severity.ERROR }
+end, { desc = 'Diagnostics: errors' })
+
+vim.keymap.set('n', '<leader>dw', function()
+  require('telescope.builtin').diagnostics { severity = { min = vim.diagnostic.severity.WARN } }
+end, { desc = 'Diagnostics: warn+' })
 
 -- Save and load session
 vim.keymap.set('n', '<leader>ss', ':mksession! .session.vim<CR>', { noremap = true, silent = false })

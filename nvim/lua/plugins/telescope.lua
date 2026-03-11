@@ -21,6 +21,13 @@ return {
   config = function()
     local actions = require 'telescope.actions'
     local builtin = require 'telescope.builtin'
+    -- After selecting a diagnostic, center the view (zz)
+    local function select_and_center(prompt_bufnr)
+      actions.select_default(prompt_bufnr)
+      vim.schedule(function()
+        pcall(vim.cmd, 'normal! zz')
+      end)
+    end
 
     require('telescope').setup {
       defaults = {
@@ -77,6 +84,20 @@ return {
         oldfiles = {
           initial_mode = 'normal',
         },
+        diagnostics = {
+          initial_mode = 'normal',
+          previewer = true,
+          mappings = {
+            i = {
+              ['<CR>'] = select_and_center,
+              ['<C-l>'] = select_and_center,
+            },
+            n = {
+              ['<CR>'] = select_and_center,
+              ['l'] = select_and_center,
+            },
+          },
+        },
       },
       live_grep = {
         additional_args = function()
@@ -105,10 +126,6 @@ return {
       },
       git_files = {
         previewer = false,
-      },
-      diagnostics = {
-        initial_mode = 'normal',
-        previewer = true,
       },
     }
 
