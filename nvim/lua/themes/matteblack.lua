@@ -1,6 +1,6 @@
 return {
   'tahayvr/matteblack.nvim',
-  lazy = false,
+  lazy = true,
   priority = 1000,
   config = function()
     -- Toggle background transparency

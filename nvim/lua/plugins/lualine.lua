@@ -36,15 +36,7 @@ return {
     --   },
     -- }
 
-    -- Import color theme based on environment variable NVIM_THEME
-    local env_var_nvim_theme = os.getenv 'NVIM_THEME' or 'nord'
-
-    -- Define a table of themes
-    local themes = {
-      nord = 'nord',
-      ethereal = 'ethereal',
-      matteblack = 'matteblack',
-    }
+    -- Let lualine derive its theme from current colorscheme
 
     local mode = {
       'mode',
@@ -85,7 +77,7 @@ return {
     require('lualine').setup {
       options = {
         icons_enabled = true,
-        theme = themes[env_var_nvim_theme], -- Set theme based on environment variable
+        theme = 'auto',
         -- Some useful glyphs:
         -- https://www.nerdfonts.com/cheat-sheet
         --        

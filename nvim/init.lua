@@ -34,7 +34,10 @@ rtp:prepend(lazypath)
 require('lazy').setup {
   require 'plugins.bufferline',
   require 'plugins.neotree',
-  require(themes[env_var_nvim_theme]),
+  -- Load all theme specs lazily to enable runtime switching
+  require 'themes.nord',
+  require 'themes.ethereal',
+  require 'themes.matteblack',
   require 'plugins.lualine',
   require 'plugins.treesitter',
   require 'plugins.telescope',
@@ -54,3 +57,8 @@ require('lazy').setup {
   require 'plugins.octo',
   require 'plugins.obsidian',
 }
+
+-- Apply the initial theme after plugins initialize
+pcall(function()
+  require('core.theme_switcher').apply(env_var_nvim_theme)
+end)

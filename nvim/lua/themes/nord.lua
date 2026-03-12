@@ -1,6 +1,6 @@
 return {
   'shaunsingh/nord.nvim',
-  lazy = false,
+  lazy = true,
   priority = 1000,
   config = function()
     -- Example config in lua
@@ -11,8 +11,7 @@ return {
     vim.g.nord_uniform_diff_background = true
     vim.g.nord_bold = false
 
-    -- Load the colorscheme
-    require('nord').set()
+    -- Colorscheme is applied by the theme switcher
 
     -- Toggle background transparency
     local style = require 'functions.style'
