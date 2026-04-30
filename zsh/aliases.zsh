@@ -1,14 +1,22 @@
 # System
 alias shutdown='sudo shutdown now'
 alias restart='sudo reboot'
-alias suspend='sudo pm-suspend'
-alias sleep='pmset sleepnow'
+if [[ "$(uname)" == "Darwin" ]]; then
+  alias sleep='pmset sleepnow'
+elif [[ "$(uname)" == "Linux" ]]; then
+  alias suspend='sudo pm-suspend'
+fi
 alias c='clear'
 alias e='exit'
 
+# Safer file operations (prompt before overwrite/delete).
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+
 # zhs config
-alias reload-zsh="source $ZDOTDIR/.zshrc"
-alias edit-zsh="nvim $ZDOTDIR/.zshrc"
+alias reload-zsh='source ${ZDOTDIR:-$HOME}/.zshrc'
+alias edit-zsh='nvim ${ZDOTDIR:-$HOME}/.zshrc'
 
 # Stow
 # alias stow='stow --target=$HOME/.config'
@@ -43,8 +51,8 @@ alias gcma='git commit --amend'
 alias gcan='git commit --amend --no-edit'
 
 # Folders
-alias doc="$HOME/Documents"
-alias dow="$HOME/Downloads"
+alias doc='cd $HOME/Documents'
+alias dow='cd $HOME/Downloads'
 
 # Eza, better ls
 alias ls='eza -lh --group-directories-first --icons=auto'
