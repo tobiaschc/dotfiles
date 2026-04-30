@@ -70,7 +70,8 @@ return {
   },
   {
     -- high-performance color highlighter
-    'norcalli/nvim-colorizer.lua',
+    'NvChad/nvim-colorizer.lua',
+    name = 'nvim-colorizer-nvchad.lua',
     config = function()
       require('colorizer').setup()
     end,
