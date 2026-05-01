@@ -53,6 +53,8 @@ Some parts of the shell and terminal setup become more useful if these are insta
 
 The shell config checks for most of these and will skip them when they are missing.
 
+On Ubuntu, `starship` and `zsh-history-substring-search` may need to be installed manually. Ubuntu also ships `bat` as `batcat`, and `install.sh` handles that by creating a local `bat` symlink.
+
 ## Zsh Setup
 
 This repo keeps zsh config in `~/.config/zsh`, so zsh needs `ZDOTDIR` set before it starts.
@@ -97,6 +99,35 @@ Clone the repository:
 git clone git@github.com:tobias-chc/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ```
+
+The simplest setup is the install script:
+
+```sh
+./install.sh
+```
+
+It can install packages, add `ZDOTDIR` to `~/.zshenv`, and run `stow .`.
+
+Useful flags:
+
+```sh
+./install.sh --help
+./install.sh --yes
+./install.sh --devpod
+./install.sh --skip-packages
+```
+
+### DevPod
+
+For DevPod or similar remote workspace containers, use:
+
+```sh
+./install.sh --devpod
+```
+
+In DevPod mode, the script prioritizes user-level setup and will continue even when it cannot install system packages. That is usually what you want in a prebuilt workspace image.
+
+## Manual Stow
 
 This repo is meant to be stowed all at once into `~/.config`. The included `.stowrc` already sets that target, so you can run:
 
