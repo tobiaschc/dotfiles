@@ -111,6 +111,7 @@ vim.keymap.set('n', '<leader>Y', [["+Y]])
 
 -- Toggle diagnostics
 local diagnostics_active = true
+vim.diagnostic.enable(true)
 
 vim.keymap.set('n', '<leader>td', function()
   diagnostics_active = not diagnostics_active

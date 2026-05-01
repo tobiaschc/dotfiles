@@ -14,8 +14,12 @@ return {
   opts = {
     workspaces = {
       {
-        name = 'ohara',
-        path = '~/ohara',
+        name = 'punk-records',
+        path = '~/Documents/obsidian_vaults/punk-records',
+      },
+      {
+        name = 'amadeus',
+        path = '~/Documents/obsidian_vaults/amadeus',
       },
     },
     mappings = {

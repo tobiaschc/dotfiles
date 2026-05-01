@@ -20,11 +20,11 @@ local default_theme = 'nord'
 local env_var_nvim_theme = os.getenv 'NVIM_THEME' or default_theme
 
 -- Define a table of theme modules
-local themes = {
-  nord = 'themes.nord',
-  ethereal = 'themes.ethereal',
-  matteblack = 'themes.matteblack',
-}
+-- local themes = {
+--   nord = 'themes.nord',
+--   ethereal = 'themes.ethereal',
+--   matteblack = 'themes.matteblack',
+-- }
 
 vim.opt.rtp:prepend(lazypath)
 ---@type vim.Option
