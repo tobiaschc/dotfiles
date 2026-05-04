@@ -8,7 +8,7 @@ $git_status\
 $fill\
 $python\
 $lua\
-$aws\
+$env_var\
 $docker_context\
 $rust\
 $golang\
@@ -75,10 +75,11 @@ symbol = ' '
 [package]
 symbol = '󰏗 '
 
-[aws]
+[env_var.AWS_PROFILE]
+variable = 'AWS_PROFILE'
 symbol = ' '
 style = 'yellow'
-format = '[$symbol($profile )(\[$duration\] )]($style)'
+format = '[$symbol$env_value ]($style)'
 
 [docker_context]
 symbol = ' '
