@@ -23,20 +23,10 @@ return {
   config = function(_, opts)
     require('toggleterm').setup(opts)
 
-    -- Use tmux popup with a persistent session — the copilot binary's TUI
-    -- cursor-redraw is incompatible with neovim's libvterm, so we use tmux's
-    -- real terminal emulator instead. The copilot session survives popup close.
+    -- Copilot floating terminal
+    local copilot_term = require('toggleterm.terminal').Terminal:new { cmd = 'copilot', hidden = true, direction = 'float' }
     local function copilot_toggle()
-      local git_dir = vim.fn.system('git rev-parse --show-toplevel 2>/dev/null'):gsub('\n', '')
-      local dir = git_dir ~= '' and git_dir or vim.fn.getcwd()
-      -- Create a detached copilot session if one doesn't exist
-      vim.fn.system(string.format('tmux has-session -t copilot 2>/dev/null || tmux new-session -d -s copilot -c %s copilot', vim.fn.shellescape(dir)))
-      -- Bind Escape to detach while the popup is open
-      vim.fn.system 'tmux bind-key -T root Escape detach-client'
-      -- Popup attaches to the session; Escape closes popup, copilot keeps running
-      vim.fn.system 'tmux display-popup -E -w 80% -h 80% "tmux attach-session -t copilot"'
-      -- Unbind Escape after popup closes so it doesn't interfere with normal tmux
-      vim.fn.system 'tmux unbind-key -T root Escape'
+      copilot_term:toggle()
     end
 
     vim.keymap.set('n', '<leader>,', copilot_toggle, { noremap = true, silent = true, desc = '[T]oggle GitHub Copilot Terminal' })

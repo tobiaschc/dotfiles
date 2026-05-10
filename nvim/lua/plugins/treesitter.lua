@@ -32,13 +32,17 @@ return { -- Highlight, edit, and navigate code
       'html',
     }
 
-    require('nvim-treesitter.configs').setup {
+    require('nvim-treesitter').setup {
       ensure_installed = ensure_installed,
       auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
     }
     vim.treesitter.language.add('json', { filetype = 'jsonc' })
+    -- Work around a Neovim 0.12 + nvim-treesitter markdown injection crash.
+    -- This only disables fenced-code injections inside markdown.
+    pcall(vim.treesitter.query.set, 'markdown', 'injections', '')
+    pcall(vim.treesitter.query.set, 'markdown_inline', 'injections', '')
 
     vim.api.nvim_create_autocmd('FileType', {
       callback = function(args)

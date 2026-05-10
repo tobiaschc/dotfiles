@@ -15,7 +15,7 @@ export TMUX_THEME="nord"
 export NVIM_THEME="nord"
 export STARSHIP_THEME="nord"
 export WEZTERM_THEME="nord"
-export BAT_THEME=tokyonight_night
+#export BAT_THEME=tokyonight_night
 
 # Update python files colors
 export LS_COLORS="${LS_COLORS}:*.py=38;5;159"
