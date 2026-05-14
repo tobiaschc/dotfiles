@@ -31,10 +31,10 @@ return {
 
     vim.keymap.set('n', '<leader>,', copilot_toggle, { noremap = true, silent = true, desc = '[T]oggle GitHub Copilot Terminal' })
 
-    -- Codex floating terminal
-    local codex_term = require('toggleterm.terminal').Terminal:new { cmd = 'codex', hidden = true, direction = 'float' }
+    -- claude floating terminal
+    local claude_term = require('toggleterm.terminal').Terminal:new { cmd = 'claude', hidden = true, direction = 'float' }
     local function codex_toggle()
-      codex_term:toggle()
+      claude_term:toggle()
     end
 
     vim.keymap.set('n', '<leader>;', codex_toggle, { noremap = true, silent = true, desc = '[T]oggle Codex Terminal' })
