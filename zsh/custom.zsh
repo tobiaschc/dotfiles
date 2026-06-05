@@ -47,6 +47,12 @@ export FZF_CTRL_T_OPTS="
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 export FZF_DEFAULT_COMMAND='rg --hidden -l ""' # Include hidden files
 
+# fzf-tab - replace zsh completion menu with fzf
+autoload -Uz compinit && compinit
+if [[ -f "${ZSH_PLUGINS_DIR}/fzf-tab/fzf-tab.plugin.zsh" ]]; then
+  source "${ZSH_PLUGINS_DIR}/fzf-tab/fzf-tab.plugin.zsh"
+fi
+
 # Activate syntax highlighting
 if [[ -f "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
   source "${ZSH_PLUGINS_DIR}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
