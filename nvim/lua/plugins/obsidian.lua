@@ -15,11 +15,11 @@ return {
     workspaces = {
       {
         name = 'punk-records',
-        path = '~/Documents/obsidian_vaults/punk-records',
+        path = '~/Documents/obsidian_vaults/punk-records-vault',
       },
       {
         name = 'amadeus',
-        path = '~/Documents/obsidian_vaults/amadeus',
+        path = '~/Documents/obsidian_vaults/amadeus-vault',
       },
     },
     mappings = {
