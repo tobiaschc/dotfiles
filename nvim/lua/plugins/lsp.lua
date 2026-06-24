@@ -181,9 +181,13 @@ return {
       basedpyright = {
         -- Config options: https://github.com/DetachHead/basedpyright/blob/main/docs/settings.md
         settings = {
-          basedpyright = {
+          pyright = {
             disableOrganizeImports = true, -- Using Ruff's import organizer
+          },
+          basedpyright = {
             disableLanguageServices = false,
+          },
+          python = {
             analysis = {
               typeCheckingMode = 'basic', -- 'off', 'basic', or 'strict'
               diagnosticMode = 'openFilesOnly', -- Only analyze open files

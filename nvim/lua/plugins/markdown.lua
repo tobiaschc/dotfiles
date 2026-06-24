@@ -1,22 +1,26 @@
 return {
-  'iamcco/markdown-preview.nvim',
-  cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-  build = 'cd app && npm install && git restore .',
-  init = function()
-    vim.g.mkdp_filetypes = { 'markdown' }
-  end,
-  ft = { 'markdown' },
-  config = function()
-    vim.g.mkdp_auto_start = 0 -- Don't auto-start preview
-    vim.g.mkdp_auto_close = 1 -- Auto-close when buffer is hidden
-    vim.g.mkdp_refresh_slow = 0 -- Refresh on text change
-    vim.g.mkdp_theme = 'light' -- Preview theme
-  end,
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = function()
+      vim.fn['mkdp#util#install']()
+    end,
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+    end,
+    ft = { 'markdown' },
+    config = function()
+      vim.g.mkdp_auto_start = 0
+      vim.g.mkdp_auto_close = 1
+      vim.g.mkdp_refresh_slow = 0
+      vim.g.mkdp_theme = 'light'
+    end,
+  },
   {
     'MeanderingProgrammer/markdown.nvim',
     main = 'render-markdown',
+    name = 'render-markdown',
     opts = {},
-    name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
-    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you use the mini.nvim suite
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
   },
 }
