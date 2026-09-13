@@ -66,6 +66,10 @@ Override files:
 
 `custom.zsh` detects platform (macOS vs Linux) and Homebrew presence to set `ZSH_PLUGINS_DIR` and load plugins from the right path.
 
+## Herdr config (`herdr/`)
+
+`herdr/config.toml` is the config for herdr (a terminal multiplexer), styled to mirror the Omarchy tmux config (`theme`, `keys`, `ui`) so muscle memory carries over. Only `config.toml` is tracked — `~/.config/herdr/` also holds runtime state (`*.log`, `*.sock`, `session.json`, `.plugins.lock`, `release-notes.json`) that stays untracked since it lives outside this repo's `herdr/` package.
+
 ## Platform notes
 
 - `aerospace/` is macOS-only (tiling WM). Harmless to stow on Linux.
