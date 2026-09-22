@@ -2,7 +2,10 @@
 
 -- Prevent LSP from overwriting treesitter color settings
 -- https://github.com/NvChad/NvChad/issues/1907
-vim.hl.priorities.semantic_tokens = 95 -- Or any number lower than 100, treesitter's priority level
+-- vim.hl replaced vim.highlight in Neovim 0.11; fall back for older installs
+-- (e.g. Debian/Ubuntu apt still ships 0.10.x).
+local hl = vim.hl or vim.highlight
+hl.priorities.semantic_tokens = 95 -- Or any number lower than 100, treesitter's priority level
 
 -- Appearance of diagnostics
 vim.diagnostic.config {
